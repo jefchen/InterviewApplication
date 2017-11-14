@@ -1,0 +1,107 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'MyAndroidKey'
+            keyPassword 'welcome123'
+            storeFile file('/Users/jefchen/androidkeystore')
+            storePassword 'Dotkite55'
+        }
+    }
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    // ---- Start: Create different builds ----
+    // defaultConfig contains same fields as productFlavors, create base variant
+    // https://developer.android.com/studio/build/build-variants.html
+    defaultConfig {
+        applicationId "com.jeffrey.myapplication"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            pseudoLocalesEnabled true
+            signingConfig signingConfigs.config
+        }
+        debug {
+            pseudoLocalesEnabled true
+        }
+    }
+    flavorDimensions "default"
+    productFlavors {
+//        demo {
+//            dimension "default"
+//            applicationIdSuffix ".demo"
+//            versionNameSuffix "-demo"
+//        }
+//        full {
+//            dimension "default"
+//            applicationIdSuffix ".full"
+//            versionNameSuffix "-demo"
+//        }
+    }
+    // --- End: Create different builds ----
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    testOptions.unitTests.all {
+        reports.html.enabled = false
+        reports.junitXml.enabled = false
+    }
+    testOptions.unitTests.all {
+        maxParallelForks = 4
+    }
+}
+
+dependencies {
+    def daggerVersion = '2.10'
+    def supportLibraryVersion = '26.0.2'
+    def architectureComponents = '1.0.0-alpha3'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
+    implementation "com.android.support:design:${supportLibraryVersion}"
+    implementation "com.android.support:support-v4:${supportLibraryVersion}"
+    implementation "com.android.support:support-annotations:${supportLibraryVersion}"
+    implementation "com.android.support:design:${supportLibraryVersion}"
+    implementation "com.android.support:percent:${supportLibraryVersion}"
+    implementation "com.android.support:support-v13:${supportLibraryVersion}"
+    implementation "com.android.support:support-vector-drawable:${supportLibraryVersion}"
+    implementation "com.android.support:animated-vector-drawable:${supportLibraryVersion}"
+    implementation "com.android.support:cardview-v7:${supportLibraryVersion}"
+    implementation "com.android.support:recyclerview-v7:${supportLibraryVersion}"
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
+    annotationProcessor "org.greenrobot:eventbus-annotation-processor:3.0.1"
+    //    annotationProcessor "android.arch.lifecycle:compiler:${architectureComponents}"
+    annotationProcessor "com.github.bumptech.glide:compiler:4.0.0-RC0"
+}
